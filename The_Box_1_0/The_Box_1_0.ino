@@ -21,8 +21,10 @@ int Air = 4;
 // threshold values (Schwellenwerte)
 const int dryA0 = 1023;
 const int dryA1 = 1023;
+const int dryA2 = 1023;
 const int wetA0 = 0;
 const int wetA1 = 0;
+const int wetA2 = 0;
 // digaital Pin of the lamp
 int blueA0 = 13;
 int greenA0 = 12;
@@ -31,6 +33,12 @@ int redA0 = 11;
 int blueA1 = 10;
 int greenA1 = 9;
 int redA1 = 8;
+
+int blueA2 = A3;
+int greenA2 = A4;
+int redA2 = A5;
+
+
 //digital pin of the pump
 int pump = 3;
 /*****************************************************/
@@ -51,6 +59,10 @@ void setup() {
   pinMode(blueA1, OUTPUT);
   pinMode(greenA1, OUTPUT);
   pinMode(redA1, OUTPUT);
+
+  pinMode(blueA2, OUTPUT);
+  pinMode(greenA2, OUTPUT);
+  pinMode(redA2, OUTPUT);
 
   pinMode(pump, OUTPUT);
 }
