@@ -5,9 +5,12 @@ void humidity() {
   // sensorVal -> to store the "Sensor Value"
   int sensorVal_A0 = (analogRead(A0));
   int sensorVal_A1 = (analogRead(A1));
+  int sensorVal_A2 = (analogRead(A2));
   //the percentages
   int percentageScale_A0 = map(sensorVal_A0, wetA0, dryA0, 100, 0);
   int percentageScale_A1 = map(sensorVal_A1, wetA1, dryA1, 100, 0);
+  int percentageScale_A2 = map(sensorVal_A2, wetA2, dryA2, 100, 0);
+
 
   Serial.print("A0:   ");
   Serial.print(sensorVal_A0);
@@ -21,6 +24,13 @@ void humidity() {
   delay(100);
   Serial.print("  A1 Prozentuell:   ");
   Serial.print(percentageScale_A1);// good to know digits
+  Serial.println("%");
+
+  Serial.print("A2:   ");
+  Serial.print(sensorVal_A2);
+  delay(100);
+  Serial.print("  A2 Prozentuell:   ");
+  Serial.print(percentageScale_A2);// good to know digits
   Serial.println("%");
 
   delay(1000);
@@ -75,6 +85,34 @@ void humidity() {
     digitalWrite(blueA1, LOW);
     digitalWrite(greenA1, LOW);
     digitalWrite(redA1, HIGH);
+  } else {
+    Serial.println("FEHLER");
+    return;
+  };
+  
+  /*THE WATERING LIGHT SWITCH A2*/
+  if (sensorVal_A2 <= 340) {
+    Serial.println("A2: blau, WET AF!! ");
+    digitalWrite(blueA2, HIGH);
+    digitalWrite(greenA2, LOW);
+    digitalWrite(redA2, LOW);
+    digitalWrite(pump, LOW);
+  }
+  else if ((sensorVal_A2 >= 341) && (sensorVal_A2 <= 681)) {
+    Serial.println("A2: grün");
+    digitalWrite(blueA2, LOW);
+    digitalWrite(greenA2, HIGH);
+    digitalWrite(redA2, LOW);
+    digitalWrite(pump, LOW);
+  }
+  else if ((sensorVal_A2 >= 682) && (sensorVal_A2 <= 1023)) {
+    Serial.println("A2: rot, DRY!!!");
+    digitalWrite(pump, HIGH);
+    delay(3000);
+    digitalWrite(pump, LOW);
+    digitalWrite(blueA2, LOW);
+    digitalWrite(greenA2, LOW);
+    digitalWrite(redA2, HIGH);
   } else {
     Serial.println("FEHLER");
     return;
